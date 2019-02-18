@@ -1,0 +1,97 @@
+int i, x;
+void f ( ) {
+int i;
+i : = 3;
+}
+x := i + 1;
+void c () {
+int x =1;
+printf (“%d \n “, a);
+}
+
+letter [A-Za-z]
+B [b]
+S [s]
+%%
+^{B}{letter}*{S}[\t\n]	{printf("Starting with b and ending with s : %s\n",yytext);}
+%%
+int yywrap(){
+return 1;
+}
+int main(void)
+{
+yylex();
+return 0;
+}
+
+A [a]
+B [b]
+E [ \t\n]
+%%
+{B}*({A}+{B}{01}{A}*)+{E}	{printf("\nSubstring without abb: %s",yytext);}
+%%
+int yywrap(){
+return 1;
+}
+int main(void)
+{
+yylex();
+return 0;
+}
+
+digits [0-9]
+%%
+(0.*0)|(1.*1)|(2.*2)|(3.*3)|(4.*4)|(5.*5)|(6.*6)|(7.*7)|(8.*8)|(9.*9)	{printf("repeated string: %s\n",yytext);}
+%%
+int yywrap(){
+return 1;
+}
+int main(void)
+{
+yylex();
+return 0;
+}
+
+letter [A-Za-z]
+digit [0-9]
+digits [0-9]+
+opfrac (.{digits})?
+opexp ([E][+|-]?{digits})?
+assgn (:=)
+op [+|-|*|/]
+delim [\t|\n]
+punct [{|}|(|)|"|;|,]
+space " "
+word [a-z][a-z]+{space}
+datatype "int"|"float"|"char"|"double"
+%{
+int no=0,id=0,assg=0,op=0,punc=0,ws=0;
+char *s;
+%}
+%%
+
+{digits}{opfrac}{opexp}	{no++;}
+
+{assgn}	{assg++;}
+{op}	{op++;}
+{delim}+	{ws++;}
+{punct}	{punc++;}
+{datatype}{space}{letter}({letter}|{digit})*	{id++;}
+,{letter}({letter}|{digit})*,	{id++;}
+,{letter}({letter}|{digit})*;	{id++;}
+{word}	{
+s=yytext;
+s[0]-=32;
+printf("\nCapitalised=%s\n",s);
+}
+%%
+int main(int argc, char * argv[])
+{
+yylex();
+printf("There were %d numbers %d identifiers %d assignment operators %d operator symbols %d white spaces %d punctuations",no,id,assg,op,ws,punc);
+
+return 0;
+}
+
+
+

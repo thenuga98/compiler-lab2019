@@ -1,0 +1,11 @@
+aabc-*+bc-d*+
+++a*a-bc*-bcd
+abcde+**+
++a*b*c+de
+be*c/dae-*+
++/be*c*c*d-ae
+ab-ced/*+
++-ab*c/ed
+ab-ecd+*+
++-ab*e+cd
+a+b
